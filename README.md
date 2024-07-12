@@ -9,6 +9,8 @@ Firmware for Heart BioAmp hardware from Upside Down Labs
 |4 | [HeartBeatDetection](4_HeartBeatDetection)| Standard deviation based heart beat detection algorithm.|
 |5 | [BLEHeartRateDetection](5_BLEHeartRateDetection)| ECG based Heart Rate calculator with ESP32 BLE.|
 |6 | [HeartRateDetection_V2.0](6_HeartRateDetection_V2.0)| More optimized and faster calculation of BPM.|
+|7 | [OLED_BPM](7_OLED_BPM)| Displaying Heart Rate(BPM) on OLED Screen|
+
 
 Compatibility of various boards with Brain-BioAmp sensors
 <table>
