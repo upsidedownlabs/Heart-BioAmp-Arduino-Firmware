@@ -8,7 +8,66 @@ Firmware for Heart BioAmp hardware from Upside Down Labs
 |3 | [HeartRateDetection](3_HeartRateDetection)| ECG signal based BPM (beats per minute) calculator.|
 |4 | [HeartBeatDetection](4_HeartBeatDetection)| Standard deviation based heart beat detection algorithm.|
 |5 | [BLEHeartRateDetection](5_BLEHeartRateDetection)| ECG based Heart Rate calculator with ESP32 BLE.|
+|6 | [Faster_HeartRateDetection](6_FasterHeartRateDetection)| More optimized and faster calculation of BPM.|
+|7 | [OLED_BPM](7_OLED_BPM)| Displaying Heart Rate(BPM) on OLED Screen|
 
+
+Compatibility of various boards with Brain-BioAmp sensors
+<table>
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Development Board</th>
+             <th>Maximum ADC Resolution</th>
+            <th>Sensor</th>
+            <th>Compatibility</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td >1</td>
+            <td align= "center" >Arduino UNO R3<br>&<br>Maker UNO</td>
+            <td align = "center" >10 bits</td>
+            <td>Bioamp EXG Pill</td>
+            <td align = "center">✅</td>
+        </tr>
+        <tr>
+            <td >2</td>
+            <td align = "center" >Arduino UNO R4 Minima<br>&<br>Arduino UNO R4 Wifi</td>
+            <td align = "center">14 bits</td>
+            <td>Bioamp EXG Pill</td>
+            <td align= "center">✅</td>
+        </tr>
+        <tr>
+            <td >3</td>
+            <td align = "center" >Raspberry Pi Pico</td>
+            <td align = "center" >12 bits</td>
+            <td>Bioamp EXG Pill</td>
+            <td align = "center">❌</td>
+        </tr>
+       <tr>
+             <td >4</td>
+            <td align= "center"  >ESP32 C3 MINI</td>
+           <td align = "center" >12 bits</td>
+            <td align = "center">Bioamp EXG Pill</td>
+            <td align= "center">❌</td>
+        </tr>
+        <tr>
+             <td >5</td>
+            <td align= "center"  >Arduino Due</td>
+           <td align = "center" >12 bits</td>
+            <td>Bioamp EXG Pill</td>
+            <td align = "center">✅</td>
+        </tr>
+        <tr>
+             <td>6</td>
+            <td align= "center"  >Arduino Nano</td>
+           <td align = "center" >10 bits</td>
+            <td>Bioamp EXG Pill</td>
+            <td align = "center">✅</td>
+        </tr>
+        </tbody>
+    </table>
 
 ## Examples
 
