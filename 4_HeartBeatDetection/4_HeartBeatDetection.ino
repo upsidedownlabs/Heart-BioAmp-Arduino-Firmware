@@ -30,6 +30,7 @@
 #define SAMPLE_RATE 125
 #define BAUD_RATE 115200
 #define INPUT_PIN A0
+#define BUZZER_PIN 8    //Can connect external buzzer at digital pin 8 for boards other than Maker Uno
 #define OUTPUT_PIN 13
 #define DATA_LENGTH 16
 
@@ -70,6 +71,13 @@ void loop() {
     	Serial.println(peak);
     	// Blink LED on peak
     	digitalWrite(OUTPUT_PIN, peak);
+	// Blink LED and buzz on peak
+        digitalWrite(OUTPUT_PIN, peak);
+        if (peak) {
+            tone(BUZZER_PIN, 1000, 10); // 1000 Hz tone for 50 ms
+        } else {
+            noTone(BUZZER_PIN);
+        }
 	}
 }
 
