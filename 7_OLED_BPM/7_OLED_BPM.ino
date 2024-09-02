@@ -149,7 +149,7 @@ void loop() {
         buffer.pop();
         
         // Display BPM if it's within a reasonable range
-        if (BPM < 240){
+        if (bpm < 240){
           Serial.print("BPM ");
           Serial.println(bpm);
           Serial.flush();
