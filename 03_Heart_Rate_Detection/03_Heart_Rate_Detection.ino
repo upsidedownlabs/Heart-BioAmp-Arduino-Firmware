@@ -89,7 +89,7 @@ void loop() {
     timer += 1000000 / SAMPLE_RATE;
     // Sample and Normalize input data (-1 to 1)
     float sensor_value = analogRead(INPUT_PIN);
-    // Filter and normalize ECG signal
+    // Filter ECG signal
     float signal = ECGFilter(sensor_value) / 512;
     // Get peak
     peak = Getpeak(signal);
