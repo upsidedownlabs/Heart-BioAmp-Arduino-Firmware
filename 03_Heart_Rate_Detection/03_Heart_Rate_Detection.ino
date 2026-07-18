@@ -27,27 +27,18 @@
    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
-
-   At Upside Down Labs, we create open-source DIY neuroscience hardware and software.
-   Our mission is to make neuroscience affordable and accessible for everyone.
-   By supporting us with your purchase, you help spread innovation and open science.
-   Thank you for being part of this journey with us!
-
 */
+ // At Upside Down Labs, we create open-source DIY neuroscience hardware and software.
+ // Our mission is to make neuroscience affordable and accessible for everyone.
+ // By supporting us with your purchase, you help spread innovation and open science.
+ // Thank you for being part of this journey with us!
 
-
-// Include the required libraries
 #include <math.h>
-#include <CircularBuffer.h>  // install the library "CircularBuffer by AgileWare"
+#include <CircularBuffer.h>
 
-// Samples per second
-#define SAMPLE_RATE 125
-
-// Make sure to set the same baud rate on your Serial Monitor/Plotter
-#define BAUD_RATE 115200
-
-// Change this if your sensor is connected to a different analog pin
-#define INPUT_PIN A2
+#define SAMPLE_RATE 125 // Sampling rate in Hz
+#define BAUD_RATE 115200 // Serial Communication Baudrate
+#define INPUT_PIN A2 //Analog pin change if input connected to other pin
 #define OUTPUT_PIN 13
 #define DATA_LENGTH 16
 
@@ -63,7 +54,7 @@ bool FirstPulseDetected = false;
 unsigned long FirstPulseTime = 0;
 unsigned long SecondPulseTime = 0;
 unsigned long PulseInterval = 0;
-CircularBuffer<int, 30> buffer;
+CircularBuffer<int,30> buffer;
 
 void setup() {
   // Initialize serial communication
@@ -85,45 +76,46 @@ void loop() {
   timer -= interval;
 
   // Sample
-  if (timer < 0) {
+  if(timer < 0){
     timer += 1000000 / SAMPLE_RATE;
-    // Sample and Normalize input data (-1 to 1)
+    // Sample and Nomalize input data (-1 to 1)
     float sensor_value = analogRead(INPUT_PIN);
-    // Filter ECG signal
-    float signal = ECGFilter(sensor_value) / 512;
+    float signal = ECGFilter(sensor_value)/512;
     // Get peak
     peak = Getpeak(signal);
+    // Print sensor_value and peak
     // Blink LED on peak
     digitalWrite(OUTPUT_PIN, peak);
 
-    if (peak && IgnoreReading == false) {  // Prevent multiple detections of the same heartbeat peak
-      if (FirstPulseDetected == false) {
-        FirstPulseTime = millis();
-        FirstPulseDetected = true;
-      } else {
-        SecondPulseTime = millis();
-        PulseInterval = SecondPulseTime - FirstPulseTime;  // Store time interval between consecutive heartbeats
-        buffer.unshift(PulseInterval);
-        FirstPulseTime = SecondPulseTime;
+    if(peak && IgnoreReading == false){
+        if(FirstPulseDetected == false){
+          FirstPulseTime = millis();
+          FirstPulseDetected = true;
+        }
+        else{
+          SecondPulseTime = millis();
+          PulseInterval = SecondPulseTime - FirstPulseTime;
+          buffer.unshift(PulseInterval);
+          FirstPulseTime = SecondPulseTime;
+        }
+        IgnoreReading = true;
       }
-      IgnoreReading = true;
-    }
-    if (!peak) {
-      IgnoreReading = false;
-    }
-    if (buffer.isFull()) {  // Calculate BPM once enough pulse intervals have been collected
-      for (int i = 0; i < buffer.size(); i++) {
-        avg += buffer[i];
-      }
-      BPM = (1.0 / avg) * 60.0 * 1000 * buffer.size();
-      avg = 0;
-      buffer.pop();
-      if (BPM < 240) {
-        Serial.print("BPM: ");
-        Serial.println(BPM);
-        Serial.flush();
-      }
-    }
+      if(!peak){
+        IgnoreReading = false;
+      }  
+      if (buffer.isFull()){
+        for(int i = 0 ;i < buffer.size(); i++){
+          avg+=buffer[i];
+        }
+        BPM = (1.0/avg) * 60.0 * 1000 * buffer.size();
+        avg = 0;
+        buffer.pop();
+        if (BPM < 240){
+          Serial.print("BPM: ");
+          Serial.println(BPM);
+          Serial.flush();
+        }
+      }  
   }
 }
 
@@ -132,9 +124,9 @@ bool Getpeak(float new_sample) {
   static float data_buffer[DATA_LENGTH];
   static float mean_buffer[DATA_LENGTH];
   static float standard_deviation_buffer[DATA_LENGTH];
-
+  
   // Check for peak
-  if (new_sample - mean_buffer[data_index] > (DATA_LENGTH / 2) * standard_deviation_buffer[data_index]) {
+  if (new_sample - mean_buffer[data_index] > (DATA_LENGTH/2) * standard_deviation_buffer[data_index]) {
     data_buffer[data_index] = new_sample + data_buffer[data_index];
     peak = true;
   } else {
@@ -144,13 +136,13 @@ bool Getpeak(float new_sample) {
 
   // Calculate mean
   float sum = 0.0, mean, standard_deviation = 0.0;
-  for (int i = 0; i < DATA_LENGTH; ++i) {
+  for (int i = 0; i < DATA_LENGTH; ++i){
     sum += data_buffer[(data_index + i) % DATA_LENGTH];
   }
-  mean = sum / DATA_LENGTH;
+  mean = sum/DATA_LENGTH;
 
   // Calculate standard deviation
-  for (int i = 0; i < DATA_LENGTH; ++i) {
+  for (int i = 0; i < DATA_LENGTH; ++i){
     standard_deviation += pow(data_buffer[(i) % DATA_LENGTH] - mean, 2);
   }
 
@@ -158,10 +150,10 @@ bool Getpeak(float new_sample) {
   mean_buffer[data_index] = mean;
 
   // Update standard deviation buffer
-  standard_deviation_buffer[data_index] = sqrt(standard_deviation / DATA_LENGTH);
+  standard_deviation_buffer[data_index] =  sqrt(standard_deviation/DATA_LENGTH);
 
   // Update data_index
-  data_index = (data_index + 1) % DATA_LENGTH;
+  data_index = (data_index+1)%DATA_LENGTH;
 
   // Return peak
   return peak;
@@ -173,33 +165,34 @@ bool Getpeak(float new_sample) {
 // Reference:
 // https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html
 // https://courses.ideate.cmu.edu/16-223/f2020/Arduino/FilterDemos/filter_gen.py
-float ECGFilter(float input) {
+float ECGFilter(float input)
+{
   float output = input;
   {
-    static float z1, z2;  // filter section state
-    float x = output - 0.70682283 * z1 - 0.15621030 * z2;
-    output = 0.28064917 * x + 0.56129834 * z1 + 0.28064917 * z2;
+    static float z1, z2; // filter section state
+    float x = output - 0.70682283*z1 - 0.15621030*z2;
+    output = 0.28064917*x + 0.56129834*z1 + 0.28064917*z2;
     z2 = z1;
     z1 = x;
   }
   {
-    static float z1, z2;  // filter section state
-    float x = output - 0.95028224 * z1 - 0.54073140 * z2;
-    output = 1.00000000 * x + 2.00000000 * z1 + 1.00000000 * z2;
+    static float z1, z2; // filter section state
+    float x = output - 0.95028224*z1 - 0.54073140*z2;
+    output = 1.00000000*x + 2.00000000*z1 + 1.00000000*z2;
     z2 = z1;
     z1 = x;
   }
   {
-    static float z1, z2;  // filter section state
-    float x = output - -1.95360385 * z1 - 0.95423412 * z2;
-    output = 1.00000000 * x + -2.00000000 * z1 + 1.00000000 * z2;
+    static float z1, z2; // filter section state
+    float x = output - -1.95360385*z1 - 0.95423412*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
     z2 = z1;
     z1 = x;
   }
   {
-    static float z1, z2;  // filter section state
-    float x = output - -1.98048558 * z1 - 0.98111344 * z2;
-    output = 1.00000000 * x + -2.00000000 * z1 + 1.00000000 * z2;
+    static float z1, z2; // filter section state
+    float x = output - -1.98048558*z1 - 0.98111344*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
     z2 = z1;
     z1 = x;
   }
