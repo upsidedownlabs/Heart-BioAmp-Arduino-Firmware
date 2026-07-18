@@ -3,14 +3,14 @@ Firmware for Heart BioAmp hardware from Upside Down Labs
 
 | No. | Program | Description |
 | ---- | ------- | --------- |
-|1 | [Fixed_Sampling](1_FixedSampling)| Sample from ADC at a fixed rate for easy processing of signal.|
-|2 | [ECG_Filter](2_ECGFilter)| A 0.5 - 44.5 Hz band-pass filter sketch for clean Electrocardiography.|
-|3 | [Heart_Rate_Detection](3_HeartRateDetection)| ECG signal based BPM (beats per minute) calculator.|
-|4 | [Heart_Beat_Detection](4_HeartBeatDetection)| Standard deviation based heart beat detection algorithm.|
-|5 | [BLE_Heart_Rate_Detection](5_BLEHeartRateDetection)| ECG based Heart Rate calculator with ESP32 BLE.|
-|6 | [Faster_Heart_Rate_Detection](6_FasterHeartRateDetection)| More optimized and faster calculation of BPM.|
-|7 | [OLED_BPM](7_OLED_BPM)| Displaying Heart Rate(BPM) on OLED Screen|
-|8 | [Breathing_Monitor](7_OLED_BPM)| Displaying Heart Rate(BPM) on OLED Screen|
+|1 | [Fixed_Sampling](01_Fixed_Sampling)| Sample from ADC at a fixed rate for easy processing of signal.|
+|2 | [ECG_Filter](02_ECG_Filter)| A 0.5 - 44.5 Hz band-pass filter sketch for clean Electrocardiography.|
+|3 | [Heart_Rate_Detection](03_Heart_Rate_Detection)| ECG signal based BPM (beats per minute) calculator.|
+|4 | [Heart_Beat_Detection](04_Heart_Beat_Detection)| Standard deviation based heart beat detection algorithm.|
+|5 | [BLE_Heart_Rate_Detection](05_BLE_Heart_Rate_Detection)| ECG based Heart Rate calculator with ESP32 BLE.|
+|6 | [Faster_Heart_Rate_Detection](06_Faster_Heart_Rate_Detection)| More optimized and faster calculation of BPM.|
+|7 | [OLED_BPM](07_OLED_BPM)| Displaying Heart Rate(BPM) on OLED Screen|
+|8 | [Breathing_Monitor](08_Breathing_Monitor)| Displaying Heart Rate(BPM) on OLED Screen|
 
 
 Compatibility of various boards with Brain-BioAmp sensors
