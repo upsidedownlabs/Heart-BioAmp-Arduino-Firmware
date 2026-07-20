@@ -148,7 +148,7 @@ void setup() {
 
 void loop() {
     // notify changed value
-    if (deviceConnected) { //when serial is availiable 
+    if (deviceConnected) {
        
 //        delay(500); // bluetooth stack will go into congestion, if too many packets are sent.
     static unsigned long past = 0;
@@ -213,7 +213,6 @@ void loop() {
     if (!deviceConnected && oldDeviceConnected) {
         delay(500); // give the bluetooth stack the chance to get things ready
         pServer->startAdvertising(); // restart advertising
-        // Serial.println("start advertising");
         oldDeviceConnected = deviceConnected;
     }
     // connecting
