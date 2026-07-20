@@ -143,7 +143,7 @@ void setup() {
   pAdvertising->setScanResponse(false);
   pAdvertising->setMinPreferred(0x0);  // set value to 0x00 to not advertise this parameter
   BLEDevice::startAdvertising();
-  // Serial.println("Waiting a client connection to notify...");
+  Serial.println("Waiting a client connection to notify...");
 }
 
 void loop() {
@@ -196,6 +196,7 @@ void loop() {
         avg = 0;
         buffer.pop();
         if (BPM < 240){
+          Serial.println("BPM");
           Serial.println(BPM);
 
           uint8_t bpmPacket[2];
@@ -213,6 +214,7 @@ void loop() {
     if (!deviceConnected && oldDeviceConnected) {
         delay(500); // give the bluetooth stack the chance to get things ready
         pServer->startAdvertising(); // restart advertising
+        Serial.println("start advertising");
         oldDeviceConnected = deviceConnected;
     }
     // connecting

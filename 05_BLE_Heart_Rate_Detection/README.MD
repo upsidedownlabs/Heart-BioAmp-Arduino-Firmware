@@ -103,4 +103,3 @@ Device name over Bluetooth: **`MyESP32`**
 | BPM jumps wildly | Loose wires or movement | Stay still, recheck all 3 connections |
 | Device not showing in Bluetooth scan | Upload issue or board not powered | Re-upload, check USB connection, check Serial Monitor |
 | BPM always 0 | IN+ or IN- electrode not making contact | Recheck electrode placement and connection |
-| Random/garbled value in nRF Connect | Display format set incorrectly | Ensure you have tapped the Heart Rate Service (`180D`), which parses standard formats automatically |

@@ -37,7 +37,7 @@ Under the hood: the **Heart BioAmp Candy** picks up your ECG, the **Arduino Uno 
 ### Software
 - [Arduino IDE](https://www.arduino.cc/en/software) (to flash the firmware)
 - The Breathing Monitor web app in this repository (`index.html` + `css/` + `js/`) - runs locally in a supported browser, no installs
-- Browser: **Chrome, Edge, or Opera**
+- Browser: **Chrome, Edge,Opera or Firefox**
 
 ---
 
@@ -81,7 +81,7 @@ visit the [documentation](https://docs.upsidedownlabs.tech/guides/usage-guides/u
 
 ### 5. Upload the Firmware
 
-1. Copy the firmware code from the [`08_Breathing_Monitor.ino`](./08_Breathing_Monitor.ino) folder in this repository.
+1. Copy the firmware code from the [`08_Breathing_Monitor/08_Breathing_Monitor.ino`](./08_Breathing_Monitor.ino) file in this repository.
 2. Open the **Arduino IDE**.
 3. Install the Arduino UNO R4 board package: **Tools → Board → Boards Manager** → search "Arduino UNO R4 Boards" → install the latest version.
    - If any installation/permission pop-up appears, click **OK**, **Install**, or **Allow** to continue.
@@ -102,7 +102,7 @@ After uploading the firmware, open the Breathing Monitor web app:
 1. Go to this repository and download it as a ZIP (**Code → Download ZIP**)
 2. Extract the downloaded ZIP into a folder on your computer.
 3. Open the folder and double-click `index.html` to launch it in your browser.
-4. Make sure it opens in **Chrome, Edge, or Opera**.
+4. Make sure it opens in **Chrome, Edge, Opera or Firefox**.
 
 ### 7. Connect to the Arduino Board
 
@@ -137,7 +137,7 @@ Once calibrated, the balloon on screen will **inflate as you inhale and deflate 
 ## Troubleshooting
 
 **Not connected successfully**
-Use Chrome, Edge, or Opera. Safari and Firefox don't support the Web Serial API yet.
+Use Chrome, Edge, Opera or Firefox. Safari don't support the Web Serial API yet.
 
 **No device shows up in the Connect dialog**
 - Make sure the USB cable is connected properly.
