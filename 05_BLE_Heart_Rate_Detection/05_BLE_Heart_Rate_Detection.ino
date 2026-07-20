@@ -148,7 +148,7 @@ void setup() {
 
 void loop() {
     // notify changed value
-    if (Serial) { //when serial is availiable 
+    if (deviceConnected) { //when serial is availiable 
        
 //        delay(500); // bluetooth stack will go into congestion, if too many packets are sent.
     static unsigned long past = 0;

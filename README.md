@@ -10,7 +10,7 @@ Firmware for Heart BioAmp hardware from Upside Down Labs
 |5 | [BLE_Heart_Rate_Detection](05_BLE_Heart_Rate_Detection)| ECG based Heart Rate calculator with ESP32 BLE.|
 |6 | [Faster_Heart_Rate_Detection](06_Faster_Heart_Rate_Detection)| More optimized and faster calculation of BPM.|
 |7 | [OLED_BPM](07_OLED_BPM)| Displaying Heart Rate(BPM) on OLED Screen|
-|8 | [Breathing_Monitor](08_Breathing_Monitor)| Displaying Heart Rate(BPM) on OLED Screen|
+|8 | [Breathing_Monitor](08_Breathing_Monitor)| Real-time breathing pattern visualization with plots and animations |
 
 
 Compatibility of various boards with Brain-BioAmp sensors
@@ -74,13 +74,13 @@ Compatibility of various boards with Brain-BioAmp sensors
 
 1. **ECG Filter**
 
-    A band-pass filter for EMG signals between 0.5 Hz and 44.5 Hz
+    A band-pass filter for ECG signals between 0.5 Hz and 44.5 Hz
 
     <img src="02_ECG_Filter/ECGFilter.png" height="300" width="400">
     
 
 2. **ECG Wave**
 
-    EMG signal detection for biomedical applications.
+    ECG signal detection for biomedical applications.
 
     <img src="02_ECG_Filter/ECGWaves.png" height="300" width="400">

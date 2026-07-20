@@ -98,7 +98,6 @@
     border: 1px solid #334155;
     color: #94a3b8;
     cursor: pointer;
-    /* display: none; */
     transition: background 0.15s ease, opacity 0.15s ease;
   }
   #recal-btn:hover { background: #263449; }

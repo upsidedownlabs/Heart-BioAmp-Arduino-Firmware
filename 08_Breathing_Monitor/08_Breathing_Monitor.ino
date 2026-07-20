@@ -7,7 +7,7 @@
 // products from Upside Down Labs!
 
 // Copyright (c) 2026 - 2026 Upside Down Labs - contact@upsidedownlabs.tech
-// Copyright (c) 2026 - Ankit - Ankitmait64@gamil.com
+// Copyright (c) 2026 - Ankit - Ankitmait64@gmail.com
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal

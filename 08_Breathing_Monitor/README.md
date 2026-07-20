@@ -66,8 +66,8 @@ Clean signal starts with clean skin - dead skin cells and oils are the biggest s
 1. Pick your electrode sites (see [Electrode Placement](https://docs.upsidedownlabs.tech/guides/usage-guides/using-gel-electrodes/index.html#using-gel-electrodes) for exact positions).
 2. Rub a small amount of **NuPrep Skin Prep Gel** onto each site.
 3. Wipe the area clean with an **alcohol swab**.
-4. Let the skin to dry for a few seconds before applying electrodes.
-you can visit the Skip [preparation documentation](https://docs.upsidedownlabs.tech/guides/usage-guides/skin-preparation/index.html#skin-preparation) for more detailed tut0rial
+4. Let the skin dry for a few seconds before applying electrodes.
+you can visit the  [skin preparation documentation](https://docs.upsidedownlabs.tech/guides/usage-guides/skin-preparation/index.html#skin-preparation) for more detailed tutorial
 
 ### 4. Electrode Placement
 
@@ -81,7 +81,7 @@ visit the [documentation](https://docs.upsidedownlabs.tech/guides/usage-guides/u
 
 ### 5. Upload the Firmware
 
-1. Copy the firmware code from the [`firmware/`](./firmware) folder in this repository.
+1. Copy the firmware code from the [`08_Breathing_Monitor.ino`](./08_Breathing_Monitor.ino) folder in this repository.
 2. Open the **Arduino IDE**.
 3. Install the Arduino UNO R4 board package: **Tools → Board → Boards Manager** → search "Arduino UNO R4 Boards" → install the latest version.
    - If any installation/permission pop-up appears, click **OK**, **Install**, or **Allow** to continue.
