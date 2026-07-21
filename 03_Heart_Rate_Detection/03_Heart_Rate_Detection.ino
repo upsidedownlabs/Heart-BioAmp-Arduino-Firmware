@@ -28,12 +28,16 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 */
+ // At Upside Down Labs, we create open-source DIY neuroscience hardware and software.
+ // Our mission is to make neuroscience affordable and accessible for everyone.
+ // By supporting us with your purchase, you help spread innovation and open science.
+ // Thank you for being part of this journey with us!
 
 #include <math.h>
 #include <CircularBuffer.h>
 
-#define SAMPLE_RATE 125
-#define BAUD_RATE 115200
+#define SAMPLE_RATE 125 // Sampling rate in Hz
+#define BAUD_RATE 115200 // Serial Communication Baudrate
 #define INPUT_PIN A2 //Analog pin change if input connected to other pin
 #define OUTPUT_PIN 13
 #define DATA_LENGTH 16
@@ -53,7 +57,7 @@ unsigned long PulseInterval = 0;
 CircularBuffer<int,30> buffer;
 
 void setup() {
-  // Serial connection begin
+  // Initialize serial communication
   Serial.begin(BAUD_RATE);
   // Setup Input & Output pin
   pinMode(INPUT_PIN, INPUT);

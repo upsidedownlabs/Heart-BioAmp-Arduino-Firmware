@@ -29,6 +29,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// At Upside Down Labs, we create open-source DIY neuroscience hardware and software.
+// Our mission is to make neuroscience affordable and accessible for everyone.
+// By supporting us with your purchase, you help spread innovation and open science.
+// Thank you for being part of this journey with us!
+
+
 // Include necessary library
 #include <math.h>
 
@@ -76,7 +82,6 @@ void loop() {
   unsigned long present = micros();
   unsigned long interval = present - past;
   past = present;
-
   // Timer for maintaining consistent sampling rate
   static long timer = 0;
   timer -= interval;
@@ -88,6 +93,7 @@ void loop() {
     // Read sensor value and normalize
     float sensor_value = analogRead(INPUT_PIN);
     float signal = ECGFilter(sensor_value)/512;
+
     
     // Detect peaks in the signal
     peakEvent = Getpeak(signal);

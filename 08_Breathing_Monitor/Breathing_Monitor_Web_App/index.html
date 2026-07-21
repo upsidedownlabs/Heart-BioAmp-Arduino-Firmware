@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Breathing Monitor</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>Breathing Monitor</h1>
+  <div id="bpm-display">
+    <span id="bpm-heart">&hearts;</span>
+    <span id="bpm-value">--</span>
+    <span id="bpm-unit">BPM</span>
+  </div>
+  <div id="top-right-controls">
+    <button id="sound-btn" title="Toggle sound & narration">Sound: On</button>
+    <button id="electrode-btn" title="Show electrode placement guide">Electrode Placement</button>
+    <button id="recal-btn" title="Re-run calibration">Calibrate</button>
+    <button id="status" class="disconnected">Connect</button>
+  </div>
+  <div id="unsupported">
+    Web Serial isn't supported in this browser.<br>
+    Open this page in Chrome, Edge, or Opera instead.
+  </div>
+  
+
+  <div id="calib-overlay">
+
+    <!-- Step 1: intro -->
+    <div id="calib-step-intro" class="calib-step">
+      <span class="calib-step-label">Step 1 of 4 &middot; Get ready</span>
+      <h2>Recalibrate breathing</h2>
+      <p>This runs a timed guided exercise so the sensor can relearn your baseline. It samples Normal breathing, Inhale hold, and Exhale out for 6 seconds each.</p>
+      <div id="calib-intro-buttons">
+        <button id="calib-start-btn" class="calib-btn">Start</button>
+        <button id="calib-cancel-btn" class="calib-btn secondary">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Step 2: countdown -->
+    <div id="calib-step-countdown" class="calib-step">
+      <span class="calib-step-label">Step 2 of 4 &middot; Get in position</span>
+      <h2>Starting soon&hellip;</h2>
+      <p>Relax and stay completely still. The exercise is about to start.</p>
+      <div id="calib-countdown-num">3</div>
+    </div>
+
+    <!-- Step 3: progress -->
+    <div id="calib-step-progress" class="calib-step">
+      <span id="calib-phase-label" class="calib-step-label">Calibrating</span>
+      <p id="calib-text">Normal breathing</p>
+      <div id="calib-phase-timer">6</div>
+      <div id="calib-progress-track">
+        <div id="calib-progress-fill"></div>
+      </div>
+      <div id="calib-count">0 / 18 seconds</div>
+    </div>
+
+    <!-- Step 4: done -->
+    <div id="calib-step-done" class="calib-step">
+      <span class="calib-step-label">Step 4 of 4 &middot; Done</span>
+      <div id="calib-done-check">&check;</div>
+      <h2>Calibration complete</h2>
+      <p>Your breathing calibration bands have been mapped successfully.</p>
+    </div>
+
+  </div>
+
+  <div id="electrode-overlay">
+    <div id="electrode-modal">
+      <button id="electrode-close-btn" title="Close">&times;</button>
+      <h2>Electrode Placement</h2>
+    </div>
+  </div>
+
+  <div id="app-frame">
+    <div id="balloon-box">
+      <canvas id="canvas"></canvas>
+      <div id="labels">
+        <span id="exhale-label" class="breath-label">Exhale</span>
+        <span id="inhale-label" class="breath-label">Inhale</span>
+      </div>
+      <div id="hold-timer">Holding 0.0s</div>
+    </div>
+    <div id="plots-panel" class="visible">
+      <div class="plot-box">
+        <div class="plot-title">ECG Signal</div>
+        <canvas id="plot-ecg"></canvas>
+      </div>
+      <div class="plot-box">
+        <div class="plot-title">Peak Envelopes</div>
+        <canvas id="plot-rpeaks"></canvas>
+      </div>
+      <div class="plot-box">
+        <div class="plot-title">Inhale (&minus;) / Exhale (+) Peak Heights</div>
+        <canvas id="plot-breath"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div id="made-with-love">
+    <img src="Logo.png" alt="#">
+  </div>
+
+
+<!-- Load order matters: these are plain scripts (not modules) sharing
+     one global scope, so each file after dom.js can rely on the
+     previous ones already having run. See the header comment in
+     each js/ file for what it owns and depends on. -->
+<script src="js/dom.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/balloon.js"></script>
+<script src="js/plots.js"></script>
+<script src="js/calibration.js"></script>
+<script src="js/serial.js"></script>
+</body>
+</html>

@@ -40,6 +40,14 @@
 // Modificado por Juan A. Villalpando
 // http://kio4.com/arduino/160i_Wemos_ESP32_BLE.htm
 
+// At Upside Down Labs, we create open-source DIY neuroscience hardware and software.
+// Our mission is to make neuroscience affordable and accessible for everyone.
+// By supporting us with your purchase, you help spread innovation and open science.
+// Thank you for being part of this journey with us!
+
+
+
+// Include required libraries
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <BLEUtils.h>
@@ -47,10 +55,17 @@
 #include <math.h>
 #include <CircularBuffer.h>
 
+// Samples per second
 #define SAMPLE_RATE 125
+
+// Make sure to set the same baud rate on your Serial Monitor/Plotter
 #define BAUD_RATE 115200
-#define INPUT_PIN 36
-#define OUTPUT_PIN 13
+
+// Change this if your sensor is connected to a different analog pin
+#define INPUT_PIN A0
+
+//LED pin on NPG Lite
+#define OUTPUT_PIN 7
 #define DATA_LENGTH 16
 
 int avg = 0;
@@ -89,8 +104,9 @@ class MyServerCallbacks: public BLEServerCallbacks {
 };
 
 void setup() {
+  //Initialize serial communication
   Serial.begin(115200);
-  
+  // Setup Input & Output pin
   pinMode(INPUT_PIN, INPUT);
   pinMode(OUTPUT_PIN, OUTPUT);
   
@@ -180,11 +196,14 @@ void loop() {
         avg = 0;
         buffer.pop();
         if (BPM < 240){
-          Serial.print("BPM ");
+          Serial.println("BPM");
           Serial.println(BPM);
-          // pCharacteristic->setValue((uint8_t*)&value, 4);
-          String alea = (String) BPM; // Lo convierte en String.
-          pCharacteristic->setValue(alea.c_str()); // Pone el numero aleatorio
+
+          uint8_t bpmPacket[2];
+          bpmPacket[0] = 0x00;                       // Flag byte
+          bpmPacket[1] = (uint8_t)constrain(BPM, 0, 255); // BPM byte (clamped to 0-255)
+
+          pCharacteristic->setValue(bpmPacket, 2);    // Set 2-byte value
           pCharacteristic->notify();
           Serial.flush();
         }

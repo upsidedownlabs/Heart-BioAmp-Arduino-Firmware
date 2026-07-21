@@ -3,13 +3,14 @@ Firmware for Heart BioAmp hardware from Upside Down Labs
 
 | No. | Program | Description |
 | ---- | ------- | --------- |
-|1 | [FixedSampling](1_FixedSampling)| Sample from ADC at a fixed rate for easy processing of signal.|
-|2 | [ECGFilter](2_ECGFilter)| A 0.5 - 44.5 Hz band-pass filter sketch for clean Electrocardiography.|
-|3 | [HeartRateDetection](3_HeartRateDetection)| ECG signal based BPM (beats per minute) calculator.|
-|4 | [HeartBeatDetection](4_HeartBeatDetection)| Standard deviation based heart beat detection algorithm.|
-|5 | [BLEHeartRateDetection](5_BLEHeartRateDetection)| ECG based Heart Rate calculator with ESP32 BLE.|
-|6 | [Faster_HeartRateDetection](6_FasterHeartRateDetection)| More optimized and faster calculation of BPM.|
-|7 | [OLED_BPM](7_OLED_BPM)| Displaying Heart Rate(BPM) on OLED Screen|
+|1 | [Fixed_Sampling](01_Fixed_Sampling)| Sample from ADC at a fixed rate for easy processing of signal.|
+|2 | [ECG_Filter](02_ECG_Filter)| A 0.5 - 44.5 Hz band-pass filter sketch for clean Electrocardiography.|
+|3 | [Heart_Rate_Detection](03_Heart_Rate_Detection)| ECG signal based BPM (beats per minute) calculator.|
+|4 | [Heart_Beat_Detection](04_Heart_Beat_Detection)| Standard deviation based heart beat detection algorithm.|
+|5 | [BLE_Heart_Rate_Detection](05_BLE_Heart_Rate_Detection)| ECG based Heart Rate calculator with ESP32 BLE.|
+|6 | [Faster_Heart_Rate_Detection](06_Faster_Heart_Rate_Detection)| More optimized and faster calculation of BPM.|
+|7 | [OLED_BPM](07_OLED_BPM)| Displaying Heart Rate(BPM) on OLED Screen|
+|8 | [Breathing_Monitor](08_Breathing_Monitor)| Real-time breathing pattern visualization with plots and animations |
 
 
 Compatibility of various boards with Brain-BioAmp sensors
@@ -73,13 +74,13 @@ Compatibility of various boards with Brain-BioAmp sensors
 
 1. **ECG Filter**
 
-    A band-pass filter for EMG signals between 0.5 Hz and 44.5 Hz
+    A band-pass filter for ECG signals between 0.5 Hz and 44.5 Hz
 
-    <img src="2_ECGFilter/ECGFilter.png" height="300" width="400">
+    <img src="02_ECG_Filter/ECGFilter.png" height="300" width="400">
     
 
 2. **ECG Wave**
 
-    EMG signal detection for biomedical applications.
+    ECG signal detection for biomedical applications.
 
-    <img src="2_ECGFilter/ECGWaves.png" height="300" width="400">
+    <img src="02_ECG_Filter/ECGWaves.png" height="300" width="400">

@@ -1,0 +1,457 @@
+  html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 30%, #1e293b, #0f172a 70%);
+    font-family: system-ui, sans-serif;
+    color: #e2e8f0;
+  }
+  h1 {
+    position: fixed;
+    top: 20px;
+    left: 48%;
+    font-weight: 500;
+    font-size: 18px;
+    color: #94a3b8;
+    margin: 0;
+    z-index: 2;
+  }
+
+  #bpm-display {
+    position: fixed;
+    top: 20px;
+    left: 65%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+    z-index: 2;
+  }
+  #bpm-heart {
+    color: #f87171;
+    font-size: 15px;
+    display: inline-block;
+    transition: transform 0.1s ease;
+  }
+  #bpm-display.pulse #bpm-heart {
+    animation: bpmPulse 0.35s ease;
+  }
+  @keyframes bpmPulse {
+    0%   { transform: scale(1); }
+    35%  { transform: scale(1.35); }
+    100% { transform: scale(1); }
+  }
+  #bpm-value { font-variant-numeric: tabular-nums; }
+  #bpm-unit {
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  #status {
+    font-size: 13px;
+    font-family: inherit;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    z-index: 2;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  #status:hover { background: #263449; }
+  #status:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+  #status.connected { color: #4ade80; border-color: #166534; }
+  #status.disconnected { color: #f87171; border-color: #7f1d1d; }
+  #status.connecting { color: #fbbf24; border-color: #78350f; }
+
+  /* All top-right buttons now live in a flex row so they space
+     themselves out based on actual text width -- fixes the
+     Sound / Electrode Placement buttons overlapping each other. */
+  #top-right-controls {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 2;
+  }
+
+  #recal-btn {
+    font-size: 13px;
+    font-family: inherit;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease;
+  }
+  #recal-btn:hover { background: #263449; }
+  #recal-btn.visible { display: block; }
+  #recal-btn:disabled { cursor: default; opacity: 0.5; }
+
+  #electrode-btn {
+    font-size: 13px;
+    font-family: inherit;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #94a3b8;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+  }
+  #electrode-btn:hover { background: #263449; }
+
+  #sound-btn {
+    font-size: 13px;
+    font-family: inherit;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #94a3b8;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+  }
+  #sound-btn:hover { background: #263449; }
+  #sound-btn.on { color: #4ade80; border-color: #166534; }
+
+  #electrode-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 10;
+    background: rgba(15, 23, 42, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  #electrode-overlay.active { display: flex; }
+
+  #electrode-modal {
+    position: relative;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 18px;
+    padding: 28px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
+    text-align: center;
+  }
+  #electrode-modal h2 {
+    margin: 0 0 16px;
+    font-size: 18px;
+    color: #e2e8f0;
+  }
+  #electrode-img {
+    max-width: 100%;
+    max-height: 70vh;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+  }
+  #electrode-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #electrode-close-btn:hover { color: #e2e8f0; }
+
+  #unsupported {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    max-width: 360px;
+    text-align: center;
+    font-size: 14px;
+    color: #f87171;
+    display: none;
+  }
+  canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+  }
+  #labels {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  #made-with-love {
+    position: fixed;
+    top: 20px;
+    left: 24px;
+    transform: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #64748b;
+    z-index: 2;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  #made-with-love img {
+    height: 34px;   /* start here instead of 200px */
+    width: auto;
+    display: block;
+  }
+  .breath-label {
+    font-weight: 500;
+    color: #475569;
+    font-size: 13px;
+    transition: color 0.3s ease, font-size 0.3s ease;
+  }
+  .breath-label.active { font-size: 23px; }
+  #exhale-label.active  { color: #fbbf24; }
+  #inhale-label.active  { color: #93c5fd; }
+
+  /* ---- Calibration overlay ---- */
+  #calib-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    background: rgba(15, 23, 42, 0.94);
+    border: 1px solid #334155;
+    border-radius: 18px;
+    padding: 32px 40px;
+    text-align: center;
+    max-width: 420px;
+    display: none;
+  }
+  #calib-overlay.active { display: block; }
+  #calib-overlay h2 {
+    margin: 0 0 10px;
+    font-size: 19px;
+    font-weight: 600;
+    color: #e2e8f0;
+  }
+  #calib-overlay p {
+    margin: 0 0 20px;
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.55;
+  }
+  #calib-progress-track {
+    width: 100%;
+    height: 8px;
+    background: #1e293b;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  #calib-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #2563eb, #93c5fd);
+    transition: width 0.25s ease;
+  }
+  #calib-count {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  #calib-step-progress #calib-text {
+    font-size: 22px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin: 4px 0 8px;
+    line-height: 1.2;
+  }
+
+  #calib-phase-timer {
+    font-size: 48px;
+    font-weight: 700;
+    color: #93c5fd;
+    margin: 4px 0 18px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- Calibration wizard steps ---- */
+  .calib-step { display: none; }
+  .calib-step.active { display: block; }
+
+  .calib-step-label {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #60a5fa;
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(37, 99, 235, 0.35);
+    border-radius: 999px;
+    padding: 4px 12px;
+  }
+
+  #calib-intro-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .calib-btn {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid #2563eb;
+    background: #2563eb;
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease;
+  }
+  .calib-btn:hover { background: #1d4ed8; }
+  .calib-btn.secondary {
+    background: transparent;
+    border-color: #334155;
+    color: #94a3b8;
+  }
+  .calib-btn.secondary:hover { background: #1e293b; }
+
+  #calib-countdown-num {
+    font-size: 48px;
+    font-weight: 600;
+    color: #93c5fd;
+    margin: 8px 0 4px;
+  }
+
+  #hold-timer {
+  position: absolute;   /* now relative to #balloon-box, which is position: relative */
+  top: 14px;
+  left: 14px;
+  transform: translateY(-6px);
+  z-index: 2;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #93c5fd;
+  background: rgba(30, 41, 59, 0.75);
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  padding: 6px 16px;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+#hold-timer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+  #calib-done-check {
+    width: 48px;
+    height: 48px;
+    margin: 6px auto 14px;
+    border-radius: 50%;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #4ade80;
+  }
+
+  /* ---- Main app frame -- screen split into two vertical halves:
+     balloon on the left, the three signal panels stacked on top of
+     each other on the right ---- */
+  #app-frame {
+    position: fixed;
+    top: 68px;
+    left: 24px;
+    right: 24px;
+    bottom: 20px;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+    border: 0px solid #334155;
+    border-radius: 22px;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(4px);
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  #plots-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1 1 50%;
+    min-width: 0;
+  }
+  .plot-box {
+    background: #0f172a;
+    border: none;
+    border-radius: 14px;
+    padding: 8px 10px 6px;
+    box-sizing: border-box;
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .plot-title {
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+    flex: 0 0 auto;
+  }
+  .plot-box canvas {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: block;
+  }
+  #balloon-box {
+    position: relative;
+    flex: 1 1 50%;
+    min-width: 0;
+    border: 1px solid #1e293b;
+    border-radius: 20px;
+    background: #0f172a;
+    overflow: hidden;
+  }
+  #balloon-box canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
