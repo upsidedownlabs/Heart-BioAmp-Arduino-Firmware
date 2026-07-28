@@ -2,21 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Breathing Monitor</title>
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <h1>Breathing Monitor</h1>
-  <div id="bpm-display">
-    <span id="bpm-heart">&hearts;</span>
-    <span id="bpm-value">--</span>
-    <span id="bpm-unit">BPM</span>
-  </div>
-  <div id="top-right-controls">
-    <button id="sound-btn" title="Toggle sound & narration">Sound: On</button>
-    <button id="electrode-btn" title="Show electrode placement guide">Electrode Placement</button>
-    <button id="recal-btn" title="Re-run calibration">Calibrate</button>
-    <button id="status" class="disconnected">Connect</button>
+  <div id="page">
+  <div id="header-bar">
+    <div id="made-with-love">
+      <img src="Logo.png" alt="#">
+    </div>
+    <h1>Breathing Monitor</h1>
+    <div id="bpm-display">
+      <span id="bpm-heart">&hearts;</span>
+      <span id="bpm-value">--</span>
+      <span id="bpm-unit">BPM</span>
+    </div>
+    <div id="top-right-controls">
+      <button id="sound-btn" title="Toggle sound & narration">Sound: On</button>
+      <button id="electrode-btn" title="Show electrode placement guide">Electrode Placement</button>
+      <button id="recal-btn" title="Re-run calibration">Calibrate</button>
+      <button id="status" class="disconnected">Connect</button>
+    </div>
   </div>
   <div id="unsupported">
     Web Serial isn't supported in this browser.<br>
@@ -70,6 +77,7 @@
     <div id="electrode-modal">
       <button id="electrode-close-btn" title="Close">&times;</button>
       <h2>Electrode Placement</h2>
+      <img id="electrode-img" src="ECG Placement.png" alt="#">
     </div>
   </div>
 
@@ -88,7 +96,7 @@
         <canvas id="plot-ecg"></canvas>
       </div>
       <div class="plot-box">
-        <div class="plot-title">Peak Envelopes</div>
+        <div class="plot-title">Peak Envelops</div>
         <canvas id="plot-rpeaks"></canvas>
       </div>
       <div class="plot-box">
@@ -98,10 +106,7 @@
     </div>
   </div>
 
-  <div id="made-with-love">
-    <img src="Logo.png" alt="#">
   </div>
-
 
 <!-- Load order matters: these are plain scripts (not modules) sharing
      one global scope, so each file after dom.js can rely on the
