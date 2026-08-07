@@ -263,6 +263,7 @@ html, body {
     max-width: 420px;
     max-height: 90vh;
     overflow-y: auto;
+    box-sizing: border-box;
     display: none;
   }
   #calib-overlay.active { display: block; }
