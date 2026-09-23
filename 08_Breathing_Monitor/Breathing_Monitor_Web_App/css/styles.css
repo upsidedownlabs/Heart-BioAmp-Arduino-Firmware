@@ -7,22 +7,39 @@
     font-family: system-ui, sans-serif;
     color: #e2e8f0;
   }
-  h1 {
+  /* #header-bar is the flex container that lays out the logo, title,
+     BPM pill, and control buttons. Everything below sizes itself off
+     actual content width instead of guessed viewport percentages, so
+     nothing overlaps regardless of monitor size or button text length
+     (e.g. "Connect" vs "Connecting..."). */
+  #header-bar {
     position: fixed;
-    top: 20px;
-    left: 48%;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    z-index: 2;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: center;
     font-weight: 500;
     font-size: 18px;
     color: #94a3b8;
     margin: 0;
-    z-index: 2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   #bpm-display {
-    position: fixed;
-    top: 20px;
-    left: 65%;
-    transform: translateX(-50%);
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     gap: 7px;
@@ -33,7 +50,6 @@
     background: #1e293b;
     border: 1px solid #334155;
     color: #e2e8f0;
-    z-index: 2;
   }
   #bpm-heart {
     color: #f87171;
@@ -80,13 +96,10 @@
      themselves out based on actual text width -- fixes the
      Sound / Electrode Placement buttons overlapping each other. */
   #top-right-controls {
-    position: fixed;
-    top: 20px;
-    right: 24px;
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     gap: 10px;
-    z-index: 2;
   }
 
   #recal-btn {
@@ -210,16 +223,12 @@
   }
 
   #made-with-love {
-    position: fixed;
-    top: 20px;
-    left: 24px;
-    transform: none;
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     gap: 6px;
     font-size: 12px;
     color: #64748b;
-    z-index: 2;
     pointer-events: none;
     white-space: nowrap;
   }
@@ -251,6 +260,9 @@
     padding: 32px 40px;
     text-align: center;
     max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-sizing: border-box;
     display: none;
   }
   #calib-overlay.active { display: block; }
@@ -454,4 +466,156 @@
     width: 100%;
     height: 100%;
     display: block;
+  }
+
+  /* ==================================================================
+     Responsive breakpoints
+     Desktop layout above is untouched. Below ~900px the balloon and
+     the plots stack vertically instead of splitting the screen in
+     half (side-by-side gets too cramped to read). Below ~640px the
+     header also switches from fixed percentage-based positions
+     (which only work on wide viewports) to a wrapping flex row so
+     nothing gets clipped by `overflow: hidden` on <body>.
+     ================================================================== */
+
+  /* ---- Tablet: stack balloon above plots, still full desktop header ---- */
+  @media (max-width: 900px) {
+    #app-frame {
+      flex-direction: column;
+      top: 128px;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      gap: 12px;
+      padding: 12px;
+    }
+    #balloon-box {
+      flex: 1 1 55%;
+      min-height: 220px;
+    }
+    #plots-panel {
+      flex: 1 1 45%;
+      min-height: 0;
+      overflow-y: auto;
+    }
+    .plot-box {
+      min-height: 110px;
+    }
+    /* Too narrow to fit logo, title, BPM pill, and 4 buttons on one
+       row, so let header-bar wrap: logo/BPM/controls stay on row 1
+       (space-between keeps them apart no matter their widths), and
+       the title drops to its own full-width row below via
+       flex-basis: 100%. */
+    #header-bar {
+      flex-wrap: wrap;
+      row-gap: 10px;
+      padding: 14px 16px;
+    }
+    #made-with-love { order: 1; }
+    #bpm-display { order: 2; }
+    #top-right-controls {
+      order: 3;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      row-gap: 8px;
+    }
+    h1 {
+      order: 4;
+      flex: 1 1 100%;
+      font-size: 16px;
+    }
+  }
+
+  /* ---- Phone: header becomes two compact wrapped rows ---- */
+  @media (max-width: 640px) {
+    #header-bar {
+      padding: 12px;
+      row-gap: 6px;
+    }
+    h1 {
+      font-size: 14px;
+      order: 4;
+      flex: 1 1 100%;
+    }
+    #bpm-display {
+      font-size: 13px;
+      padding: 5px 12px;
+      gap: 5px;
+    }
+    #top-right-controls {
+      gap: 6px;
+    }
+    #top-right-controls button {
+      font-size: 12px;
+      padding: 5px 10px;
+    }
+    #made-with-love {
+      display: none;
+    }
+    #app-frame {
+      top: 132px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      padding: 10px;
+      gap: 10px;
+      border-radius: 16px;
+    }
+    #balloon-box {
+      flex-basis: 50%;
+      min-height: 200px;
+      border-radius: 14px;
+    }
+    #plots-panel {
+      flex-basis: 50%;
+      gap: 10px;
+    }
+    .plot-box {
+      min-height: 100px;
+      padding: 6px 8px 4px;
+      border-radius: 10px;
+    }
+    .plot-title {
+      font-size: 10px;
+    }
+    #labels {
+      padding: 0 14px;
+      bottom: 10px;
+    }
+    .breath-label { font-size: 12px; }
+    .breath-label.active { font-size: 19px; }
+    #hold-timer {
+      font-size: 12px;
+      padding: 5px 12px;
+    }
+    #calib-overlay {
+      width: calc(100vw - 40px);
+      max-width: 420px;
+      padding: 24px 22px;
+    }
+    #calib-phase-timer {
+      font-size: 38px;
+      margin: 4px 0 14px;
+    }
+    #calib-countdown-num {
+      font-size: 38px;
+    }
+    #electrode-modal {
+      padding: 20px;
+    }
+  }
+
+  /* ---- Very small phones ---- */
+  @media (max-width: 380px) {
+    #top-right-controls button {
+      font-size: 11px;
+      padding: 4px 8px;
+    }
+    #bpm-display {
+      font-size: 12px;
+      padding: 4px 10px;
+    }
+    #app-frame {
+      top: 118px;
+    }
   }
